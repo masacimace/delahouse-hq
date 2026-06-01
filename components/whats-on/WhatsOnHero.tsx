@@ -97,7 +97,7 @@ export function WhatsOnHero({ page }: WhatsOnHeroProps) {
           </div>
 
           <div className="text-center">
-            <h1 className="mx-auto max-w-5xl text-xl font-semibold leading-tight md:text-6xl">
+            <h1 className="mx-auto max-w-5xl text-md font-semibold leading-tight md:text-6xl">
               {page?.title || "What’s On in Delahouse"}
             </h1>
 

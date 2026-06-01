@@ -124,7 +124,7 @@ function OutletCard({ outlet }: OutletCardProps) {
             rel="noreferrer"
             className="flex items-center justify-center border border-(--foreground) px-5 py-3 text-xs font-semibold uppercase tracking-wide transition hover:bg-(--foreground) hover:text-(--background)"
           >
-            Reservation
+            Contact Us
           </a>
         ) : null}
       </div>

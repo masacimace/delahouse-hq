@@ -239,7 +239,7 @@ export function BrandDirectoryCarousel({
                       alt={brand.name}
                       width={220}
                       height={80}
-                      className="max-h-6 w-auto object-contain brightness-0 invert md:max-h-6"
+                      className="max-h-8 w-auto object-contain brightness-0 invert md:max-h-8"
                     />
                   ) : (
                     <span className="text-sm font-semibold text-white">
