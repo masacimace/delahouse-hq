@@ -5,6 +5,8 @@ import type { BrandArchiveBrand } from "@/components/brands/BrandArchiveRow";
 import { client } from "@/sanity/lib/client";
 import { BRANDS_PAGE_QUERY, BRANDS_QUERY } from "@/sanity/lib/queries";
 
+export const revalidate = 60;
+
 export const metadata = {
   title: "Brands",
   description:

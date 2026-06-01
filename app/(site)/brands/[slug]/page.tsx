@@ -36,6 +36,8 @@ type PageProps = {
   }>;
 };
 
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   const brands = await client.fetch<Array<{ slug: string }>>(BRANDS_QUERY);
 

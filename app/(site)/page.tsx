@@ -30,6 +30,8 @@ type Brand = {
   sortOrder?: number;
 };
 
+export const revalidate = 60;
+
 export default async function Home() {
   const [siteSettings, homePage, brands, whatsOnItems] = await Promise.all([
     client.fetch(SITE_SETTINGS_QUERY),

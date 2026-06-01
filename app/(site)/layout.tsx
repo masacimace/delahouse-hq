@@ -4,6 +4,8 @@ import { Navbar } from "@/components/Navbar";
 import { Providers } from "@/components/Providers";
 import { RouteSplash } from "@/components/RouteSplash";
 
+export const revalidate = 60;
+
 export default function SiteLayout({
   children,
 }: Readonly<{

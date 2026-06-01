@@ -15,6 +15,8 @@ type AboutPageData = {
   instagramUrl?: string;
 };
 
+export const revalidate = 60;
+
 export const metadata = {
   title: "About",
   description:

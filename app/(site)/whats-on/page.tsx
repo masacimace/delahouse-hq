@@ -5,6 +5,8 @@ import type { WhatsOnPageItem } from "@/components/whats-on/WhatsOnHero";
 import { client } from "@/sanity/lib/client";
 import { WHATS_ON_PAGE_QUERY, WHATS_ON_QUERY } from "@/sanity/lib/queries";
 
+export const revalidate = 60;
+
 export const metadata = {
   title: "What's On",
   description:

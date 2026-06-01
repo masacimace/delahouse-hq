@@ -53,6 +53,8 @@ function formatDate(date?: string) {
   }).format(new Date(date));
 }
 
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   const slugs = await client.fetch<{ slug: string }[]>(WHATS_ON_SLUGS_QUERY);
 
