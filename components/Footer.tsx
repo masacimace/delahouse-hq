@@ -98,7 +98,7 @@ export async function Footer() {
             {footerDescription}
           </p>
 
-          <nav className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+          <nav className="mt-12 flex flex-wrap items-center justify-center gap-x-4 gap-y-4">
             {mainNavigation.map((item) => (
               <Link
                 key={item.href}
@@ -110,7 +110,7 @@ export async function Footer() {
             ))}
           </nav>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-1">
             {siteSettings?.instagramUrl ? (
               <a
                 href={siteSettings.instagramUrl}

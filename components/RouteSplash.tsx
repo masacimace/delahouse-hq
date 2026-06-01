@@ -9,6 +9,10 @@ export async function RouteSplash() {
     SITE_SETTINGS_QUERY,
   );
 
+  if (siteSettings?.enableSplashScreen === false) {
+    return null;
+  }
+
   const logoUrl = siteSettings?.footerLogo
     ? urlFor(siteSettings.footerLogo).width(720).fit("max").url()
     : siteSettings?.logo

@@ -43,7 +43,7 @@ type BrandGroupProps = {
 
 function BrandGroup({ title, brands, startIndex }: BrandGroupProps) {
   return (
-    <section className="border-t border-(--border)">
+    <section>
       <div className="site-container-fluid py-10 md:py-14">
         <div className="mb-8 flex items-end justify-between gap-6">
           <h2 className="text-3xl font-semibold md:text-5xl">{title}</h2>

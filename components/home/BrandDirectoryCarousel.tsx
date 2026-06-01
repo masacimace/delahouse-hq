@@ -215,8 +215,8 @@ export function BrandDirectoryCarousel({
                   type="button"
                   onClick={() => setActiveIndex(index)}
                   className={[
-                    "relative flex h-20 min-w-34 shrink-0 items-center justify-center border-r border-white/20 px-5 transition md:h-24 md:min-w-0 md:flex-1",
-                    isActive ? "bg-white/10" : "hover:bg-white/5",
+                    "relative flex h-16 min-w-28 shrink-0 items-center justify-center border-r border-white/5 px-1 transition md:h-24 md:min-w-48 lg:min-w-56",
+                    isActive ? "bg-white/5" : "hover:bg-white/5",
                   ].join(" ")}
                   aria-label={`View ${brand.name}`}
                   aria-current={isActive ? "true" : undefined}
@@ -239,7 +239,7 @@ export function BrandDirectoryCarousel({
                       alt={brand.name}
                       width={220}
                       height={80}
-                      className="max-h-8 w-auto object-contain brightness-0 invert md:max-h-8"
+                      className="max-h-6 w-auto object-contain brightness-0 invert md:max-h-6"
                     />
                   ) : (
                     <span className="text-sm font-semibold text-white">

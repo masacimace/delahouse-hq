@@ -31,7 +31,7 @@ export function HomeHero({
   return (
     <section
       data-navbar-contrast="light"
-      className="relative min-h-screen w-full overflow-hidden bg-black text-white"
+      className="relative min-h-svh w-full overflow-hidden bg-black text-white"
     >
       {videoUrl ? (
         <video
@@ -59,7 +59,7 @@ export function HomeHero({
       <div className="absolute inset-0 bg-black/35" />
       <div className="absolute inset-0 bg-linear-to-b from-black/20 via-black/20 to-black/65" />
 
-      <div className="relative z-10 flex min-h-screen items-center justify-center px-6 text-center">
+      <div className="relative z-10 flex min-h-svh flex-col items-center justify-center px-6 text-center">
         <div className="max-w-3xl">
           {eyebrow ? (
             <p className="mb-5 text-xs font-medium text-white/80">{eyebrow}</p>
@@ -72,7 +72,7 @@ export function HomeHero({
               width={520}
               height={220}
               priority
-              className="mx-auto h-auto w-70 object-contain md:w-85 lg:w-105"
+              className="mx-auto h-auto w-50 object-contain md:w-85 lg:w-85"
             />
           ) : (
             <h1 className="text-6xl font-medium leading-none text-white md:text-8xl lg:text-9xl">
@@ -87,7 +87,7 @@ export function HomeHero({
           ) : null}
           <a
             href="#brands"
-            className="mx-auto mt-10 inline-flex flex-col items-center gap-2 text-xs font-medium text-white/75 transition hover:text-white"
+            className="mx-auto mt-10 inline-flex flex-col items-center gap-4 text-xs font-medium text-white/75 transition hover:text-white"
             aria-label="Scroll to explore"
           >
             <span>Scroll to explore</span>
@@ -108,12 +108,9 @@ export function HomeHero({
         </div>
       </div>
 
-      <div className="pointer-events-none absolute bottom-6 left-0 right-0 z-10 px-6 text-white/70 md:px-10">
+      <div className="pointer-events-none absolute bottom-[calc(env(safe-area-inset-bottom)+1rem)] left-0 right-0 z-10 px-6 text-white md:bottom-6 md:px-10">
         <div className="flex justify-center text-center text-[9px] md:text-[9px] font-base">
-          <p>
-            ©{new Date().getFullYear()} DELAHOUSE INDONESIA, All Rights
-            Reserved.
-          </p>
+          <p></p>
         </div>
       </div>
     </section>

@@ -145,7 +145,7 @@ export function MenuButton({
                   onClick={() => setIsOpen(false)}
                   className={[
                     "w-fit text-2xl font-semibold leading-none transition hover:text-white md:text-3xl",
-                    index === 0 ? "text-white/45" : "text-white",
+                    index === 0 ? "text-white" : "text-white",
                   ].join(" ")}
                 >
                   {item.label}

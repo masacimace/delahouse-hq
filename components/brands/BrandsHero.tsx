@@ -71,15 +71,13 @@ export function BrandsHero({ page }: BrandsHeroProps) {
       <div className="relative z-10 flex min-h-[52vh] flex-col justify-center px-6 py-24 md:min-h-[64vh] md:px-10">
         <div className="mx-auto w-full max-w-6xl">
           <div className="mb-20 flex items-center gap-1 text-xs font-semibold uppercase text-white/80 md:mb-24">
-            <Link href="/" className="transition hover:text-white">
-              Home
-            </Link>
-            <span>/</span>
-            <span>Brands</span>
+            <Link href="/" className="transition hover:text-white"></Link>
+            <span></span>
+            <span></span>
           </div>
 
           <div className="text-center">
-            <h1 className="mx-auto max-w-5xl text-4xl font-semibold leading-tight md:text-6xl">
+            <h1 className="mx-auto max-w-5xl text-xl font-semibold leading-tight md:text-6xl">
               {page?.title || "Brands"}
             </h1>
 

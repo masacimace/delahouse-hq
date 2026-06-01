@@ -112,9 +112,15 @@ export function BrandArchiveRow({ brand, index }: BrandArchiveRowProps) {
   return (
     <article className="grid gap-6 pb-8 md:min-h-[72vh] md:grid-cols-[55%_45%] md:gap-0 md:pb-0">
       <div
-        className="group relative aspect-video overflow-hidden bg-(--surface-muted) md:aspect-auto md:min-h-[72vh]"
+        className="group relative aspect-video touch-pan-y overflow-hidden bg-(--surface-muted) md:aspect-auto md:min-h-[72vh]"
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
+        onPointerCancel={() => {
+          pointerStartX.current = null;
+        }}
+        onPointerLeave={() => {
+          pointerStartX.current = null;
+        }}
       >
         {imageUrl ? (
           <Image
@@ -156,28 +162,10 @@ export function BrandArchiveRow({ brand, index }: BrandArchiveRowProps) {
 
         {slides.length > 1 ? (
           <div className="absolute bottom-4 right-4 flex items-center gap-2 text-white">
-            <button
-              type="button"
-              onClick={goToPreviousSlide}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-black/20 transition hover:bg-black/50"
-              aria-label={`Previous image for ${brand.name}`}
-            >
-              ←
-            </button>
-
             <span className="min-w-14 rounded-full bg-black/30 px-3 py-2 text-center text-xs">
               {String(activeSlideIndex + 1).padStart(2, "0")} /{" "}
               {String(slides.length).padStart(2, "0")}
             </span>
-
-            <button
-              type="button"
-              onClick={goToNextSlide}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-black/20 transition hover:bg-black/50"
-              aria-label={`Next image for ${brand.name}`}
-            >
-              →
-            </button>
           </div>
         ) : null}
       </div>

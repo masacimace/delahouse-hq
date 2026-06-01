@@ -68,9 +68,7 @@ export function WhatsOnHorizontalGallery({
       className="bg-(--background) py-10 text-(--foreground) md:min-h-screen md:py-12"
     >
       <div className="mb-6 px-4 md:px-6">
-        <h2 className="text-2xl font-medium md:text-3xl">
-          More What&apos;s On
-        </h2>
+        <h2 className="text-2xl font-medium md:text-3xl">Latest Events</h2>
       </div>
 
       <div

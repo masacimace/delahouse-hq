@@ -13,6 +13,13 @@ export const siteSettings = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "enableSplashScreen",
+      title: "Enable Splash Screen",
+      type: "boolean",
+      description: "Turn on/off the route transition splash screen.",
+      initialValue: true,
+    }),
+    defineField({
       name: "siteDescription",
       title: "Site Description",
       type: "text",

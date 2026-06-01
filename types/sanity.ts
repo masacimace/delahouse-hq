@@ -6,6 +6,7 @@ export type BrandCategory = "eat-drink" | "wear-culture";
 export type SiteSettings = {
   siteName?: string;
   siteDescription?: string;
+  enableSplashScreen?: boolean;
   logo?: SanityImageSource | null;
   navbarLogoLight?: SanityImageSource | null;
   navbarLogoDark?: SanityImageSource | null;

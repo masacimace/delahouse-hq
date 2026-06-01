@@ -68,7 +68,7 @@ export function NavbarLogo({
                   width={180}
                   height={60}
                   priority
-                  className="h-16 w-auto object-contain"
+                  className="h-16 md-h-24 w-auto object-contain"
                 />
               ) : lightLogoUrl ? (
                 <Image
@@ -77,7 +77,7 @@ export function NavbarLogo({
                   width={180}
                   height={60}
                   priority
-                  className="h-16 w-auto object-contain brightness-0 invert"
+                  className="h-16 md-h-24 w-auto object-contain brightness-0 invert"
                 />
               ) : null
             ) : (
@@ -89,7 +89,7 @@ export function NavbarLogo({
                     width={180}
                     height={60}
                     priority
-                    className="h-16 w-auto object-contain dark:hidden"
+                    className="h-16 md-h-24 w-auto object-contain dark:hidden"
                   />
                 ) : null}
 
@@ -100,7 +100,7 @@ export function NavbarLogo({
                     width={180}
                     height={60}
                     priority
-                    className="hidden h-16 w-auto object-contain dark:block"
+                    className="hidden h-16 md-h-24 w-auto object-contain dark:block"
                   />
                 ) : null}
 
@@ -111,7 +111,7 @@ export function NavbarLogo({
                     width={180}
                     height={60}
                     priority
-                    className="h-16 w-auto object-contain dark:hidden"
+                    className="h-16 md-h-24 w-auto object-contain dark:hidden"
                   />
                 ) : null}
               </>
