@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity";
 
 export const outlet = defineType({
   name: "outlet",
-  title: "Outlet",
+  title: "Store Locations",
   type: "document",
   fields: [
     defineField({

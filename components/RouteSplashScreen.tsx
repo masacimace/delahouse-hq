@@ -29,7 +29,7 @@ export function RouteSplashScreen({
 
     const timeout = window.setTimeout(() => {
       setIsVisible(false);
-    }, 600);
+    }, 1800);
 
     return () => {
       window.clearTimeout(timeout);
@@ -39,7 +39,7 @@ export function RouteSplashScreen({
   return (
     <div
       className={[
-        "fixed inset-0 z-9999 flex items-center justify-center overflow-hidden bg-black/95 backdrop-blur-xl text-white transition duration-100",
+        "fixed inset-0 z-9999 flex items-center justify-center overflow-hidden bg-black/95 backdrop-blur-md text-white transition duration-100",
         isVisible
           ? "pointer-events-auto opacity-100"
           : "pointer-events-none opacity-0",
@@ -52,7 +52,7 @@ export function RouteSplashScreen({
           patternScaleX={1}
           patternScaleY={1}
           patternRefreshInterval={2}
-          patternAlpha={70}
+          patternAlpha={50}
         />
       </div>
 
@@ -64,7 +64,7 @@ export function RouteSplashScreen({
             width={520}
             height={220}
             priority
-            className="h-auto w-65 animated-pulse object-contain md:w-[320px]"
+            className="h-auto w-42 animated-pulse object-contain md:w-[320px]"
           />
         ) : (
           <p className="animate-pulse text-xl font-semibold uppercase tracking-wide md:text-3xl">

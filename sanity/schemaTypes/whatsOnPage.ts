@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity";
 
 export const whatsOnPage = defineType({
   name: "whatsOnPage",
-  title: "What's On Page",
+  title: "Header WhatsOn",
   type: "document",
   fields: [
     defineField({

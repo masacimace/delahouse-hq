@@ -12,12 +12,6 @@ export const homePage = defineType({
       initialValue: "Delahouse Indonesia",
     }),
     defineField({
-      name: "heroEyebrow",
-      title: "Hero Eyebrow",
-      type: "string",
-      initialValue: "Jakarta Lifestyle House",
-    }),
-    defineField({
       name: "heroTitle",
       title: "Hero Title",
       type: "string",

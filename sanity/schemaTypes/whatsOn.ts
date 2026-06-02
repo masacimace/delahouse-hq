@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity";
 
 export const whatsOn = defineType({
   name: "whatsOn",
-  title: "What's On",
+  title: "What's On Content",
   type: "document",
   fields: [
     defineField({
@@ -78,17 +78,6 @@ export const whatsOn = defineType({
         }),
       ],
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "featuredColor",
-      title: "Featured Background Color",
-      type: "string",
-      description:
-        "Optional hex color for the featured hero block. Example: #E8FF4F",
-      validation: (Rule) =>
-        Rule.regex(/^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/).warning(
-          "Use a valid hex color, for example #E8FF4F",
-        ),
     }),
     defineField({
       name: "excerpt",

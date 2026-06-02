@@ -120,14 +120,6 @@ export const siteSettings = defineType({
       ],
     }),
     defineField({
-      name: "footerDescription",
-      title: "Footer Description",
-      type: "text",
-      rows: 3,
-      initialValue:
-        "A Jakarta-based hospitality and lifestyle house for food, drinks, coffee, fashion, and culture.",
-    }),
-    defineField({
       name: "favicon",
       title: "Favicon",
       type: "image",
