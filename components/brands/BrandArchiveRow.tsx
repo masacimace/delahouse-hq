@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
-import type { PointerEvent } from "react";
+import type { PointerEvent, WheelEvent } from "react";
 import type { SanityImageSource } from "@sanity/image-url";
 
 import { brandCategoryLabels } from "@/lib/navigation";
@@ -31,9 +31,17 @@ type BrandSlide = {
   isCover: boolean;
 };
 
+const POINTER_SWIPE_THRESHOLD = 40;
+const WHEEL_SWIPE_THRESHOLD = 70;
+const WHEEL_GESTURE_RESET_MS = 180;
+const WHEEL_SLIDE_COOLDOWN_MS = 450;
+
 export function BrandArchiveRow({ brand, index }: BrandArchiveRowProps) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const pointerStartX = useRef<number | null>(null);
+  const wheelDeltaX = useRef(0);
+  const lastWheelEventAt = useRef(0);
+  const lastWheelSlideAt = useRef(0);
 
   const slides = useMemo<BrandSlide[]>(() => {
     const items: BrandSlide[] = [];
@@ -98,7 +106,7 @@ export function BrandArchiveRow({ brand, index }: BrandArchiveRowProps) {
 
     const distance = event.clientX - pointerStartX.current;
 
-    if (Math.abs(distance) > 40) {
+    if (Math.abs(distance) > POINTER_SWIPE_THRESHOLD) {
       if (distance < 0) {
         goToNextSlide();
       } else {
@@ -109,12 +117,46 @@ export function BrandArchiveRow({ brand, index }: BrandArchiveRowProps) {
     pointerStartX.current = null;
   }
 
+  function handleWheel(event: WheelEvent<HTMLDivElement>) {
+    if (slides.length <= 1 || event.deltaX === 0) return;
+
+    const isHorizontalSwipe = Math.abs(event.deltaX) > Math.abs(event.deltaY);
+    if (!isHorizontalSwipe) return;
+
+    event.preventDefault();
+
+    const now = performance.now();
+    if (now - lastWheelEventAt.current > WHEEL_GESTURE_RESET_MS) {
+      wheelDeltaX.current = 0;
+    }
+
+    lastWheelEventAt.current = now;
+    wheelDeltaX.current += event.deltaX;
+
+    if (
+      Math.abs(wheelDeltaX.current) < WHEEL_SWIPE_THRESHOLD ||
+      now - lastWheelSlideAt.current < WHEEL_SLIDE_COOLDOWN_MS
+    ) {
+      return;
+    }
+
+    if (wheelDeltaX.current > 0) {
+      goToNextSlide();
+    } else {
+      goToPreviousSlide();
+    }
+
+    wheelDeltaX.current = 0;
+    lastWheelSlideAt.current = now;
+  }
+
   return (
     <article className="grid gap-6 pb-8 md:min-h-[72vh] md:grid-cols-[55%_45%] md:gap-0 md:pb-0">
       <div
         className="group relative aspect-video touch-pan-y overflow-hidden bg-(--surface-muted) md:aspect-auto md:min-h-[72vh]"
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
+        onWheel={handleWheel}
         onPointerCancel={() => {
           pointerStartX.current = null;
         }}
@@ -178,7 +220,7 @@ export function BrandArchiveRow({ brand, index }: BrandArchiveRowProps) {
 
         <div className="mt-2 md:mt-auto">
           {brand.shortDescription ? (
-            <p className="max-w-3xl text-sm font-medium leading-snug md:text-3xl">
+            <p className="max-w-3xl text-sm font-medium leading-snug md:text-2xl">
               {brand.shortDescription}
             </p>
           ) : (

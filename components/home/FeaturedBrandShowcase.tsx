@@ -10,7 +10,7 @@ type FeaturedBrandShowcaseProps = {
 };
 
 export function FeaturedBrandShowcase({ brands }: FeaturedBrandShowcaseProps) {
-  const featuredBrands = brands.slice(0, 4);
+  const featuredBrands = brands.slice(0, 5);
 
   if (!featuredBrands.length) return null;
 
@@ -21,8 +21,8 @@ export function FeaturedBrandShowcase({ brands }: FeaturedBrandShowcaseProps) {
     >
       <div className="site-container-fluid">
         <div className="space-y-8 md:space-y-10">
-          {featuredBrands.map((brand, index) => (
-            <FeaturedBrandCard key={brand._id} brand={brand} index={index} />
+          {featuredBrands.map((brand) => (
+            <FeaturedBrandCard key={brand._id} brand={brand} />
           ))}
         </div>
       </div>
@@ -32,10 +32,9 @@ export function FeaturedBrandShowcase({ brands }: FeaturedBrandShowcaseProps) {
 
 type FeaturedBrandCardProps = {
   brand: Brand;
-  index: number;
 };
 
-function FeaturedBrandCard({ brand, index }: FeaturedBrandCardProps) {
+function FeaturedBrandCard({ brand }: FeaturedBrandCardProps) {
   const imageUrl = brand.heroImage
     ? urlFor(brand.heroImage).width(1400).height(1000).fit("crop").url()
     : null;
@@ -111,7 +110,7 @@ function FeaturedBrandCard({ brand, index }: FeaturedBrandCardProps) {
                 href={`/brands/${brand.slug}`}
                 className="w-fit underline underline-offset-4 transition hover:text-(--accent)"
               >
-                Find More
+                Discover More
               </Link>
             </div>
           </div>

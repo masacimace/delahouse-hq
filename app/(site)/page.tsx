@@ -56,20 +56,10 @@ export default async function Home() {
     websiteJsonLd(),
   ];
 
-  const eatAndDrinkBrands = brands.filter(
-    (brand) => brand.category === "eat-drink",
-  );
-
-  const wearAndCultureBrands = brands.filter(
-    (brand) => brand.category === "wear-culture",
-  );
-
   const featuredBrands =
     homePage?.featuredBrands?.length > 0
       ? homePage.featuredBrands
       : brands.filter((brand) => brand.featured);
-
-  const homepageFeaturedBrands = featuredBrands.slice(0, 3);
 
   return (
     <main className="min-h-screen bg-[#F7F5F0] text-black dark:bg-[#050505] dark:text-[#F7F5F0]">
@@ -83,7 +73,7 @@ export default async function Home() {
         videoUrl={homePage?.heroVideoUrl}
       />
 
-      <FeaturedBrandShowcase brands={homepageFeaturedBrands} />
+      <FeaturedBrandShowcase brands={featuredBrands} />
 
       <BrandDirectoryCarousel brands={brands} />
 
