@@ -1,8 +1,4 @@
-import Image from "next/image";
-import Link from "next/link";
-
 import { client } from "@/sanity/lib/client";
-import { urlFor } from "@/sanity/lib/image";
 import { SITE_SETTINGS_QUERY } from "@/sanity/lib/queries";
 import type { SiteSettings } from "@/types/sanity";
 
@@ -14,14 +10,6 @@ export async function Navbar() {
   const siteSettings = await client.fetch<SiteSettings | null>(
     SITE_SETTINGS_QUERY,
   );
-
-  const lightLogoUrl = siteSettings?.navbarLogoLight
-    ? urlFor(siteSettings.navbarLogoLight).height(96).fit("max").url()
-    : null;
-
-  const darkLogoUrl = siteSettings?.navbarLogoDark
-    ? urlFor(siteSettings.navbarLogoDark).height(96).fit("max").url()
-    : null;
 
   return (
     <header className="sticky top-2 z-50 -mb-16 h-16 bg-transparent">
@@ -39,8 +27,8 @@ export async function Navbar() {
           <div className="pointer-events-auto">
             <NavbarLogo
               siteName={siteSettings?.siteName || "Delahouse Indonesia"}
-              lightLogoUrl={lightLogoUrl}
-              darkLogoUrl={darkLogoUrl}
+              lightLogo={siteSettings?.navbarLogoLight}
+              darkLogo={siteSettings?.navbarLogoDark}
             />
           </div>
         </div>

@@ -1,18 +1,20 @@
 "use client";
 
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import type { SanityImageSource } from "@sanity/image-url";
+
+import { SanityImage } from "@/components/SanityImage";
 
 import Noise from "@/components/ui/Noise";
 
 type RouteSplashScreenProps = {
-  logoUrl?: string | null;
+  logo?: SanityImageSource | null;
   siteName?: string;
 };
 
 export function RouteSplashScreen({
-  logoUrl,
+  logo,
   siteName = "Delahouse Indonesia",
 }: RouteSplashScreenProps) {
   const pathname = usePathname();
@@ -57,13 +59,13 @@ export function RouteSplashScreen({
       </div>
 
       <div className="relative z-10 flex items-center justify-center">
-        {logoUrl ? (
-          <Image
-            src={logoUrl}
+        {logo ? (
+          <SanityImage
+            source={logo}
             alt={siteName}
             width={520}
             height={220}
-            priority
+            fetchPriority="high"
             className="h-auto w-42 animated-pulse object-contain md:w-[320px]"
           />
         ) : (

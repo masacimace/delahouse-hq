@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import type { SanityImageSource } from "@sanity/image-url";
 
-import { urlFor } from "@/sanity/lib/image";
+import { SanityImage } from "@/components/SanityImage";
 
 const HERO_SLIDESHOW_DURATION = 5000;
 
@@ -62,25 +61,34 @@ export function WhatsOnHero({ page }: WhatsOnHeroProps) {
 
   const activeImage = images[activeIndex];
 
-  const imageUrl = activeImage
-    ? urlFor(activeImage).width(2400).height(1400).fit("crop").url()
-    : null;
-
   return (
     <section
       data-navbar-contrast="light"
       className="relative min-h-[52vh] overflow-hidden bg-black text-white md:min-h-[64vh]"
     >
-      {imageUrl ? (
-        <Image
-          key={activeIndex}
-          src={imageUrl}
-          alt={page?.title || "What's On"}
-          fill
-          priority
-          className="object-cover transition-opacity duration-700"
-          sizes="100vw"
-        />
+      {activeImage ? (
+        <>
+          <SanityImage
+            key={`${activeIndex}-mobile`}
+            source={activeImage}
+            aspectRatio={4 / 5}
+            alt={page?.title || "What's On"}
+            fill
+            fetchPriority="high"
+            className="object-cover transition-opacity duration-700 md:hidden"
+            sizes="100vw"
+          />
+          <SanityImage
+            key={`${activeIndex}-desktop`}
+            source={activeImage}
+            aspectRatio={12 / 7}
+            alt={page?.title || "What's On"}
+            fill
+            fetchPriority="high"
+            className="hidden object-cover transition-opacity duration-700 md:block"
+            sizes="100vw"
+          />
+        </>
       ) : (
         <div className="absolute inset-0 bg-neutral-950" />
       )}

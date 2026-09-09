@@ -1,12 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { SanityImageSource } from "@sanity/image-url";
 
+import { SanityImage } from "@/components/SanityImage";
 import { brandCategoryLabels } from "@/lib/navigation";
-import { urlFor } from "@/sanity/lib/image";
 
 const SLIDESHOW_DURATION = 8000;
 
@@ -73,18 +72,6 @@ export function BrandDirectoryCarousel({
 
   if (!activeBrand) return null;
 
-  const backgroundImageUrl = activeBrand.heroImage
-    ? urlFor(activeBrand.heroImage).width(2400).height(1400).fit("crop").url()
-    : null;
-
-  const cardImageUrl = activeBrand.heroImage
-    ? urlFor(activeBrand.heroImage).width(900).height(700).fit("crop").url()
-    : null;
-
-  const logoUrl = activeBrand.logo
-    ? urlFor(activeBrand.logo).width(360).fit("max").url()
-    : null;
-
   const categoryLabel =
     activeBrand.category in brandCategoryLabels
       ? brandCategoryLabels[
@@ -113,15 +100,27 @@ export function BrandDirectoryCarousel({
         data-navbar-contrast="light"
         className="relative min-h-screen overflow-hidden bg-black text-white"
       >
-        {backgroundImageUrl ? (
-          <Image
-            key={activeBrand._id}
-            src={backgroundImageUrl}
-            alt={activeBrand.name}
-            fill
-            className="object-cover transition-opacity duration-700"
-            sizes="100vw"
-          />
+        {activeBrand.heroImage ? (
+          <>
+            <SanityImage
+              key={`${activeBrand._id}-mobile`}
+              source={activeBrand.heroImage}
+              aspectRatio={9 / 20}
+              alt={activeBrand.name}
+              fill
+              className="object-cover transition-opacity duration-700 md:hidden"
+              sizes="100vw"
+            />
+            <SanityImage
+              key={`${activeBrand._id}-desktop`}
+              source={activeBrand.heroImage}
+              aspectRatio={12 / 7}
+              alt={activeBrand.name}
+              fill
+              className="hidden object-cover transition-opacity duration-700 md:block"
+              sizes="100vw"
+            />
+          </>
         ) : (
           <div className="absolute inset-0 bg-neutral-950" />
         )}
@@ -132,13 +131,13 @@ export function BrandDirectoryCarousel({
         <div className="relative z-10 flex min-h-screen items-center justify-center px-6 pb-36 pt-28 md:px-10">
           <div className="w-[84vw] max-w-[20rem] rounded-xs border border-white/20 bg-white/90 p-3 text-center text-black shadow-2xl backdrop-blur-sm md:w-full md:max-w-lg md:p-5">
             <div className="flex min-h-12 items-center justify-center px-4 py-4 md:min-h-16 md:px-5 md:py-5">
-              {logoUrl ? (
-                <Image
-                  src={logoUrl}
+              {activeBrand.logo ? (
+                <SanityImage
+                  source={activeBrand.logo}
                   alt={activeBrand.name}
                   width={260}
                   height={90}
-                  priority
+                  fetchPriority="high"
                   className="max-h-8 w-auto object-contain invert md:max-h-12"
                 />
               ) : (
@@ -158,14 +157,15 @@ export function BrandDirectoryCarousel({
                   playsInline
                   preload="metadata"
                 />
-              ) : cardImageUrl ? (
-                <Image
-                  key={cardImageUrl}
-                  src={cardImageUrl}
+              ) : activeBrand.heroImage ? (
+                <SanityImage
+                  key={`${activeBrand._id}-card`}
+                  source={activeBrand.heroImage}
+                  aspectRatio={4 / 3}
                   alt={activeBrand.name}
                   fill
                   className="object-cover"
-                  sizes="(min-width: 768px) 32rem, 100vw"
+                  sizes="(min-width: 768px) 32rem, 84vw"
                 />
               ) : (
                 <div className="flex h-full items-center justify-center p-8 text-center text-2xl font-semibold">
@@ -202,10 +202,6 @@ export function BrandDirectoryCarousel({
           >
             {visibleBrands.map((brand, index) => {
               const isActive = index === activeIndex;
-              const brandLogoUrl = brand.logo
-                ? urlFor(brand.logo).width(220).fit("max").url()
-                : null;
-
               return (
                 <button
                   key={brand._id}
@@ -233,9 +229,9 @@ export function BrandDirectoryCarousel({
                     </span>
                   ) : null}
 
-                  {brandLogoUrl ? (
-                    <Image
-                      src={brandLogoUrl}
+                  {brand.logo ? (
+                    <SanityImage
+                      source={brand.logo}
                       alt={brand.name}
                       width={220}
                       height={80}

@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 
-import { urlFor } from "@/sanity/lib/image";
+import { SanityImage } from "@/components/SanityImage";
 import type { SanityImageSource } from "@sanity/image-url";
 
 type BrandCardProps = {
@@ -18,19 +17,16 @@ type BrandCardProps = {
 };
 
 export function BrandCard({ brand }: BrandCardProps) {
-  const imageUrl = brand.heroImage
-    ? urlFor(brand.heroImage).width(900).height(1100).fit("crop").url()
-    : null;
-
   return (
     <Link
       href={`/brands/${brand.slug}`}
       className="group block overflow-hidden border border-black/10 bg-white transition hover:border-black dark:border-white/15 dark:bg-neutral-950 dark:hover:border-white"
     >
       <div className="relative aspect-4/5 overflow-hidden bg-neutral-200 dark:bg-neutral-900">
-        {imageUrl ? (
-          <Image
-            src={imageUrl}
+        {brand.heroImage ? (
+          <SanityImage
+            source={brand.heroImage}
+            aspectRatio={4 / 5}
             alt={brand.name}
             fill
             className="object-cover grayscale transition duration-700 group-hover:scale-105 group-hover:grayscale-0"

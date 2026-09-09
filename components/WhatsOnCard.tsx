@@ -1,8 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { SanityImageSource } from "@sanity/image-url";
 
-import { urlFor } from "@/sanity/lib/image";
+import { SanityImage } from "@/components/SanityImage";
 
 type WhatsOnCardProps = {
   item: {
@@ -32,10 +31,6 @@ function formatDate(date?: string) {
 }
 
 export function WhatsOnCard({ item }: WhatsOnCardProps) {
-  const imageUrl = item.image
-    ? urlFor(item.image).width(1000).height(1200).fit("crop").url()
-    : null;
-
   const startDate = formatDate(item.dateStart);
   const endDate = formatDate(item.dateEnd);
 
@@ -50,9 +45,10 @@ export function WhatsOnCard({ item }: WhatsOnCardProps) {
       className="group block overflow-hidden border border-black/10 bg-white transition hover:border-black dark:border-white/15 dark:bg-neutral-950 dark:hover:border-white"
     >
       <div className="relative aspect-4/5 overflow-hidden bg-neutral-200 dark:bg-neutral-900">
-        {imageUrl ? (
-          <Image
-            src={imageUrl}
+        {item.image ? (
+          <SanityImage
+            source={item.image}
+            aspectRatio={4 / 5}
             alt={item.title}
             fill
             className="object-cover grayscale transition duration-700 group-hover:scale-105 group-hover:grayscale-0"

@@ -1,9 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import type { SanityImageSource } from "@sanity/image-url";
+import type { PortableTextBlock } from "@portabletext/types";
 import { JsonLd } from "@/components/JsonLd";
+import { SanityImage } from "@/components/SanityImage";
 import { articleJsonLd, eventJsonLd } from "@/lib/jsonLd";
 
 import { RichText } from "@/components/RichText";
@@ -21,7 +22,7 @@ type WhatsOnItem = {
   type?: string;
   image?: SanityImageSource | null;
   excerpt?: string;
-  description?: any[];
+  description?: PortableTextBlock[];
   dateStart?: string;
   dateEnd?: string;
   ctaLabel?: string;
@@ -223,12 +224,13 @@ export default async function WhatsOnDetailPage({ params }: PageProps) {
         </div>
 
         <div className="relative min-h-130 overflow-hidden bg-neutral-200 dark:bg-neutral-900">
-          {imageUrl ? (
-            <Image
-              src={imageUrl}
+          {item.image ? (
+            <SanityImage
+              source={item.image}
+              aspectRatio={3 / 2}
               alt={item.title}
               fill
-              priority
+              fetchPriority="high"
               className="object-cover grayscale"
               sizes="(min-width: 768px) 50vw, 100vw"
             />

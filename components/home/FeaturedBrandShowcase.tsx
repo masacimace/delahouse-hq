@@ -1,8 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 
+import { SanityImage } from "@/components/SanityImage";
 import { brandCategoryLabels } from "@/lib/navigation";
-import { urlFor } from "@/sanity/lib/image";
 import type { Brand } from "@/types/sanity";
 
 type FeaturedBrandShowcaseProps = {
@@ -35,10 +34,6 @@ type FeaturedBrandCardProps = {
 };
 
 function FeaturedBrandCard({ brand }: FeaturedBrandCardProps) {
-  const imageUrl = brand.heroImage
-    ? urlFor(brand.heroImage).width(1400).height(1000).fit("crop").url()
-    : null;
-
   const categoryLabel =
     brand.category in brandCategoryLabels
       ? brandCategoryLabels[brand.category]
@@ -60,9 +55,9 @@ function FeaturedBrandCard({ brand }: FeaturedBrandCardProps) {
             playsInline
             preload="metadata"
           />
-        ) : imageUrl ? (
-          <Image
-            src={imageUrl}
+        ) : brand.heroImage ? (
+          <SanityImage
+            source={brand.heroImage}
             alt={brand.name}
             fill
             className="object-cover transition duration-700 group-hover:scale-[1.01]"

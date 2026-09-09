@@ -1,22 +1,24 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import type { SanityImageSource } from "@sanity/image-url";
+
+import { SanityImage } from "@/components/SanityImage";
 
 import { useHeroNavMode } from "@/hooks/useHeroNavMode";
 import { useNavbarContrastMode } from "@/hooks/useNavbarContrastMode";
 
 type NavbarLogoProps = {
   siteName: string;
-  lightLogoUrl?: string | null;
-  darkLogoUrl?: string | null;
+  lightLogo?: SanityImageSource | null;
+  darkLogo?: SanityImageSource | null;
 };
 
 export function NavbarLogo({
   siteName,
-  lightLogoUrl,
-  darkLogoUrl,
+  lightLogo,
+  darkLogo,
 }: NavbarLogoProps) {
   const isHeroMode = useHeroNavMode();
   const useLightNav = useNavbarContrastMode();
@@ -25,10 +27,7 @@ export function NavbarLogo({
   useEffect(() => {
     const footer = document.getElementById("site-footer");
 
-    if (!footer) {
-      setIsFooterVisible(false);
-      return;
-    }
+    if (!footer) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -58,59 +57,59 @@ export function NavbarLogo({
       ].join(" ")}
     >
       <Link href="/" className="block">
-        {lightLogoUrl || darkLogoUrl ? (
+        {lightLogo || darkLogo ? (
           <>
             {useLightNav ? (
-              darkLogoUrl ? (
-                <Image
-                  src={darkLogoUrl}
+              darkLogo ? (
+                <SanityImage
+                  source={darkLogo}
                   alt={siteName}
                   width={280}
                   height={60}
-                  priority
+                  fetchPriority="high"
                   className="h-19 md-h-24 w-auto object-contain"
                 />
-              ) : lightLogoUrl ? (
-                <Image
-                  src={lightLogoUrl}
+              ) : lightLogo ? (
+                <SanityImage
+                  source={lightLogo}
                   alt={siteName}
                   width={280}
                   height={60}
-                  priority
+                  fetchPriority="high"
                   className="h-19 md-h-24 w-auto object-contain brightness-0 invert"
                 />
               ) : null
             ) : (
               <>
-                {lightLogoUrl ? (
-                  <Image
-                    src={lightLogoUrl}
+                {lightLogo ? (
+                  <SanityImage
+                    source={lightLogo}
                     alt={siteName}
                     width={280}
                     height={60}
-                    priority
+                    fetchPriority="high"
                     className="h-19 md-h-24 w-auto object-contain dark:hidden"
                   />
                 ) : null}
 
-                {darkLogoUrl ? (
-                  <Image
-                    src={darkLogoUrl}
+                {darkLogo ? (
+                  <SanityImage
+                    source={darkLogo}
                     alt={siteName}
                     width={280}
                     height={60}
-                    priority
+                    fetchPriority="high"
                     className="hidden h-19 md-h-24 w-auto object-contain dark:block"
                   />
                 ) : null}
 
-                {!lightLogoUrl && darkLogoUrl ? (
-                  <Image
-                    src={darkLogoUrl}
+                {!lightLogo && darkLogo ? (
+                  <SanityImage
+                    source={darkLogo}
                     alt={siteName}
                     width={280}
                     height={60}
-                    priority
+                    fetchPriority="high"
                     className="h-19 md-h-24 w-auto object-contain dark:hidden"
                   />
                 ) : null}

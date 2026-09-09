@@ -1,18 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { useTheme } from "next-themes";
 
 import { useNavbarContrastMode } from "@/hooks/useNavbarContrastMode";
 
+const subscribeToClientState = () => () => {};
+
 export function ThemeToggle() {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    subscribeToClientState,
+    () => true,
+    () => false,
+  );
   const { theme, setTheme } = useTheme();
   const useLightNav = useNavbarContrastMode();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const buttonClassName = [
     "flex h-9 w-9 items-center justify-center transition hover:opacity-60",

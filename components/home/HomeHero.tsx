@@ -1,7 +1,6 @@
-import Image from "next/image";
 import type { SanityImageSource } from "@sanity/image-url";
 
-import { urlFor } from "@/sanity/lib/image";
+import { SanityImage } from "@/components/SanityImage";
 
 type HomeHeroProps = {
   title?: string;
@@ -20,14 +19,6 @@ export function HomeHero({
   image,
   videoUrl,
 }: HomeHeroProps) {
-  const imageUrl = image
-    ? urlFor(image).width(2400).height(1400).fit("crop").url()
-    : null;
-
-  const heroLogoUrl = heroLogo
-    ? urlFor(heroLogo).width(520).fit("max").url()
-    : null;
-
   return (
     <section
       data-navbar-contrast="light"
@@ -43,15 +34,27 @@ export function HomeHero({
           playsInline
           preload="metadata"
         />
-      ) : imageUrl ? (
-        <Image
-          src={imageUrl}
-          alt={title || "Delahouse Indonesia"}
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
+      ) : image ? (
+        <>
+          <SanityImage
+            source={image}
+            aspectRatio={9 / 20}
+            alt={title || "Delahouse Indonesia"}
+            fill
+            fetchPriority="high"
+            className="object-cover md:hidden"
+            sizes="100vw"
+          />
+          <SanityImage
+            source={image}
+            aspectRatio={12 / 7}
+            alt={title || "Delahouse Indonesia"}
+            fill
+            fetchPriority="high"
+            className="hidden object-cover md:block"
+            sizes="100vw"
+          />
+        </>
       ) : (
         <div className="absolute inset-0 bg-neutral-900" />
       )}
@@ -65,13 +68,13 @@ export function HomeHero({
             <p className="mb-5 text-xs font-medium text-white/80">{eyebrow}</p>
           ) : null}
 
-          {heroLogoUrl ? (
-            <Image
-              src={heroLogoUrl}
+          {heroLogo ? (
+            <SanityImage
+              source={heroLogo}
               alt={title || "Delahouse Indonesia"}
               width={520}
               height={220}
-              priority
+              fetchPriority="high"
               className="mx-auto h-auto w-50 object-contain md:w-85 lg:w-85"
             />
           ) : (

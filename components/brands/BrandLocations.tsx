@@ -1,7 +1,6 @@
-import Image from "next/image";
 import type { SanityImageSource } from "@sanity/image-url";
 
-import { urlFor } from "@/sanity/lib/image";
+import { SanityImage } from "@/components/SanityImage";
 
 export type BrandOutlet = {
   _id: string;
@@ -48,10 +47,6 @@ type OutletCardProps = {
 };
 
 function OutletCard({ outlet }: OutletCardProps) {
-  const imageUrl = outlet.image
-    ? urlFor(outlet.image).width(900).height(560).fit("crop").url()
-    : null;
-
   const menuHref = outlet.menuFileUrl || outlet.menuUrl;
 
   return (
@@ -67,9 +62,10 @@ function OutletCard({ outlet }: OutletCardProps) {
       </div>
 
       <div className="relative mb-5 aspect-video overflow-hidden bg-(--surface-muted)">
-        {imageUrl ? (
-          <Image
-            src={imageUrl}
+        {outlet.image ? (
+          <SanityImage
+            source={outlet.image}
+            aspectRatio={16 / 9}
             alt={outlet.name}
             fill
             className="object-cover"

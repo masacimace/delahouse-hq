@@ -1,33 +1,33 @@
 "use client";
 
+import { useCallback, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+
+function subscribeToViewport(callback: () => void) {
+  window.addEventListener("scroll", callback, { passive: true });
+  window.addEventListener("resize", callback);
+
+  return () => {
+    window.removeEventListener("scroll", callback);
+    window.removeEventListener("resize", callback);
+  };
+}
 
 export function useHeroNavMode() {
   const pathname = usePathname();
-  const [isHeroMode, setIsHeroMode] = useState(pathname === "/");
 
-  useEffect(() => {
-    if (pathname !== "/") {
-      setIsHeroMode(false);
-      return;
-    }
+  const getSnapshot = useCallback(() => {
+    if (pathname !== "/") return false;
 
-    function handleScroll() {
-      const triggerPoint = window.innerHeight * 0.8;
-      setIsHeroMode(window.scrollY < triggerPoint);
-    }
-
-    handleScroll();
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
+    const triggerPoint = window.innerHeight * 0.8;
+    return window.scrollY < triggerPoint;
   }, [pathname]);
 
-  return isHeroMode;
+  const getServerSnapshot = useCallback(() => pathname === "/", [pathname]);
+
+  return useSyncExternalStore(
+    subscribeToViewport,
+    getSnapshot,
+    getServerSnapshot,
+  );
 }

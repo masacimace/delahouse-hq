@@ -1,7 +1,6 @@
-import Image from "next/image";
 import type { SanityImageSource } from "@sanity/image-url";
 
-import { urlFor } from "@/sanity/lib/image";
+import { SanityImage } from "@/components/SanityImage";
 
 type BrandDetailHeroProps = {
   name: string;
@@ -18,12 +17,6 @@ export function BrandDetailHero({
   heroImage,
   heroVideoUrl,
 }: BrandDetailHeroProps) {
-  const heroImageUrl = heroImage
-    ? urlFor(heroImage).width(2400).height(1400).fit("crop").url()
-    : null;
-
-  const logoUrl = logo ? urlFor(logo).width(560).fit("max").url() : null;
-
   return (
     <section
       data-navbar-contrast="light"
@@ -39,15 +32,27 @@ export function BrandDetailHero({
           playsInline
           preload="metadata"
         />
-      ) : heroImageUrl ? (
-        <Image
-          src={heroImageUrl}
-          alt={name}
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
+      ) : heroImage ? (
+        <>
+          <SanityImage
+            source={heroImage}
+            aspectRatio={9 / 20}
+            alt={name}
+            fill
+            fetchPriority="high"
+            className="object-cover md:hidden"
+            sizes="100vw"
+          />
+          <SanityImage
+            source={heroImage}
+            aspectRatio={12 / 7}
+            alt={name}
+            fill
+            fetchPriority="high"
+            className="hidden object-cover md:block"
+            sizes="100vw"
+          />
+        </>
       ) : (
         <div className="absolute inset-0 bg-neutral-950" />
       )}
@@ -58,13 +63,13 @@ export function BrandDetailHero({
       <div className="relative z-10 flex min-h-screen flex-col justify-center px-6 py-24 md:px-10">
         <div className="mx-auto w-full max-w-6xl">
           <div className="flex flex-col items-center text-center">
-            {logoUrl ? (
-              <Image
-                src={logoUrl}
+            {logo ? (
+              <SanityImage
+                source={logo}
                 alt={name}
                 width={560}
                 height={220}
-                priority
+                fetchPriority="high"
                 className="h-auto max-h-24 w-auto object-contain md:max-h-34"
               />
             ) : (

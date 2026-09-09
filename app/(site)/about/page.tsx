@@ -1,7 +1,5 @@
-import Image from "next/image";
-
+import { SanityImage } from "@/components/SanityImage";
 import { client } from "@/sanity/lib/client";
-import { urlFor } from "@/sanity/lib/image";
 import { ABOUT_PAGE_QUERY, SITE_SETTINGS_QUERY } from "@/sanity/lib/queries";
 import type { SiteSettings } from "@/types/sanity";
 import type { SanityImageSource } from "@sanity/image-url";
@@ -32,14 +30,6 @@ export default async function AboutPage() {
     client.fetch<SiteSettings | null>(SITE_SETTINGS_QUERY),
   ]);
 
-  const backgroundImageUrl = aboutPage?.backgroundImage
-    ? urlFor(aboutPage.backgroundImage)
-        .width(1800)
-        .height(2400)
-        .fit("crop")
-        .url()
-    : null;
-
   const description =
     aboutPage?.description ||
     "Delahouse Indonesia brings together hospitality and lifestyle brands shaped by Jakarta’s appetite, nightlife, streetwear, and culture.";
@@ -63,15 +53,27 @@ export default async function AboutPage() {
             playsInline
             preload="metadata"
           />
-        ) : backgroundImageUrl ? (
-          <Image
-            src={backgroundImageUrl}
-            alt="About Delahouse Indonesia"
-            fill
-            priority
-            className="object-cover"
-            sizes="100vw"
-          />
+        ) : aboutPage?.backgroundImage ? (
+          <>
+            <SanityImage
+              source={aboutPage.backgroundImage}
+              aspectRatio={9 / 20}
+              alt="About Delahouse Indonesia"
+              fill
+              fetchPriority="high"
+              className="object-cover md:hidden"
+              sizes="100vw"
+            />
+            <SanityImage
+              source={aboutPage.backgroundImage}
+              aspectRatio={12 / 7}
+              alt="About Delahouse Indonesia"
+              fill
+              fetchPriority="high"
+              className="hidden object-cover md:block"
+              sizes="100vw"
+            />
+          </>
         ) : (
           <div className="absolute inset-0 bg-neutral-950" />
         )}

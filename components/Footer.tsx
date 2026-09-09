@@ -1,14 +1,13 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Mail } from "lucide-react";
 import { FaInstagram, FaWhatsapp, FaTiktok } from "react-icons/fa6";
 import type { SanityImageSource } from "@sanity/image-url";
 
 import { FooterBrandLogoSlider } from "@/components/FooterBrandLogoSlider";
+import { SanityImage } from "@/components/SanityImage";
 import { getWhatsAppUrl } from "@/lib/format";
 import { mainNavigation } from "@/lib/navigation";
 import { client } from "@/sanity/lib/client";
-import { urlFor } from "@/sanity/lib/image";
 import { BRANDS_QUERY, SITE_SETTINGS_QUERY } from "@/sanity/lib/queries";
 import type { SiteSettings } from "@/types/sanity";
 
@@ -27,28 +26,14 @@ export async function Footer() {
 
   const whatsappUrl = getWhatsAppUrl(siteSettings?.whatsappNumber);
 
-  const footerLogoUrl = siteSettings?.footerLogo
-    ? urlFor(siteSettings.footerLogo).width(720).fit("max").url()
-    : siteSettings?.logo
-      ? urlFor(siteSettings.logo).width(720).fit("max").url()
-      : null;
-
   const footerBrandLogos = brands
     .filter((brand) => brand.logo && brand.slug)
     .map((brand) => ({
       _id: brand._id,
       name: brand.name,
       slug: brand.slug,
-      logoUrl: urlFor(brand.logo!).width(720).fit("max").url(),
+      logo: brand.logo!,
     }));
-
-  const footerImageUrl = siteSettings?.footerImage
-    ? urlFor(siteSettings.footerImage)
-        .width(2400)
-        .height(1400)
-        .fit("crop")
-        .url()
-    : null;
 
   const footerDescription =
     siteSettings?.footerDescription ||
@@ -71,14 +56,25 @@ export async function Footer() {
           playsInline
           preload="metadata"
         />
-      ) : footerImageUrl ? (
-        <Image
-          src={footerImageUrl}
-          alt={siteSettings?.siteName || "Delahouse Indonesia"}
-          fill
-          className="scale-110 object-cover blur-[6px]"
-          sizes="100vw"
-        />
+      ) : siteSettings?.footerImage ? (
+        <>
+          <SanityImage
+            source={siteSettings.footerImage}
+            aspectRatio={9 / 20}
+            alt={siteSettings?.siteName || "Delahouse Indonesia"}
+            fill
+            className="scale-110 object-cover blur-[6px] md:hidden"
+            sizes="100vw"
+          />
+          <SanityImage
+            source={siteSettings.footerImage}
+            aspectRatio={12 / 7}
+            alt={siteSettings?.siteName || "Delahouse Indonesia"}
+            fill
+            className="hidden scale-110 object-cover blur-[6px] md:block"
+            sizes="100vw"
+          />
+        </>
       ) : (
         <div className="absolute inset-0 bg-neutral-950" />
       )}
@@ -90,7 +86,7 @@ export async function Footer() {
         <div className="site-container flex flex-1 flex-col items-center justify-center py-28 text-center">
           <FooterBrandLogoSlider
             brands={footerBrandLogos}
-            fallbackLogoUrl={footerLogoUrl}
+            fallbackLogo={siteSettings?.footerLogo || siteSettings?.logo}
             siteName={siteSettings?.siteName || "Delahouse Indonesia"}
           />
 

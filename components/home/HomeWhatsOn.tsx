@@ -1,9 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { SanityImageSource } from "@sanity/image-url";
 
+import { SanityImage } from "@/components/SanityImage";
 import { formatDateRange } from "@/lib/format";
-import { urlFor } from "@/sanity/lib/image";
 
 type HomeWhatsOnItem = {
   _id: string;
@@ -57,7 +56,7 @@ export function HomeWhatsOn({ items }: HomeWhatsOnProps) {
           </Link>
         </div>
 
-        <div className="flex gap-5 overflow-x-auto overscroll-x-contain pb-2 scroll-smooth md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:pb-0">
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-2 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-3 md:gap-x-6 md:gap-y-10 md:overflow-visible md:pb-0">
           {latestItems.map((item) => (
             <HomeWhatsOnCard key={item._id} item={item} />
           ))}
@@ -72,10 +71,6 @@ type HomeWhatsOnCardProps = {
 };
 
 function HomeWhatsOnCard({ item }: HomeWhatsOnCardProps) {
-  const imageUrl = item.image
-    ? urlFor(item.image).width(900).height(1200).fit("crop").url()
-    : null;
-
   const schedule =
     item.scheduleLabel || formatDateRange(item.dateStart, item.dateEnd);
 
@@ -87,17 +82,18 @@ function HomeWhatsOnCard({ item }: HomeWhatsOnCardProps) {
       href={href}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noreferrer" : undefined}
-      className="group block min-w-[78vw] shrink-0 md:min-w-0"
+      className="group flex w-[78vw] shrink-0 snap-start flex-col md:w-auto md:min-w-0"
       aria-label={`Open ${item.title}`}
     >
       <div className="relative aspect-3/4 overflow-hidden bg-(--surface-muted)">
-        {imageUrl ? (
-          <Image
-            src={imageUrl}
+        {item.image ? (
+          <SanityImage
+            source={item.image}
+            aspectRatio={3 / 4}
             alt={item.title}
             fill
             className="object-cover transition duration-700 group-hover:scale-[1.01]"
-            sizes="(min-width: 768px) 25vw, 78vw"
+            sizes="(min-width: 768px) 33vw, 78vw"
           />
         ) : (
           <div className="flex h-full items-center justify-center p-6 text-center text-xs font-semibold">
@@ -107,16 +103,16 @@ function HomeWhatsOnCard({ item }: HomeWhatsOnCardProps) {
       </div>
 
       <div className="pt-5">
-        <p className="mb-3 text-sm font-semibold text-(--muted)">
+        <p className="mb-3 text-[11px] md:text-sm font-semibold text-(--muted)">
           {item.relatedBrand?.name || "Delahouse Indonesia"}
         </p>
 
-        <h3 className="text-sm font-semibold leading-snug transition group-hover:text-(--accent)">
+        <h3 className="text-sm md:text-sm font-semibold leading-snug transition group-hover:text-(--accent)">
           {item.title}
         </h3>
 
         {schedule ? (
-          <p className="mt-3 text-sm italic leading-6 text-(--muted)">
+          <p className="mt-3 text-[12px] md:text-sm italic leading-6 text-(--muted)">
             {schedule}
           </p>
         ) : null}

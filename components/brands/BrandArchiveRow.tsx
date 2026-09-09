@@ -1,13 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
 import type { PointerEvent, WheelEvent } from "react";
 import type { SanityImageSource } from "@sanity/image-url";
 
+import { SanityImage } from "@/components/SanityImage";
 import { brandCategoryLabels } from "@/lib/navigation";
-import { urlFor } from "@/sanity/lib/image";
 
 export type BrandArchiveBrand = {
   _id: string;
@@ -68,14 +67,6 @@ export function BrandArchiveRow({ brand, index }: BrandArchiveRowProps) {
   }, [brand.heroImage, brand.gallery]);
 
   const currentSlide = slides[activeSlideIndex];
-  const imageUrl = currentSlide
-    ? urlFor(currentSlide.image).width(1500).height(1100).fit("crop").url()
-    : null;
-
-  const logoUrl = brand.logo
-    ? urlFor(brand.logo).width(520).fit("max").url()
-    : null;
-
   const categoryLabel =
     brand.category in brandCategoryLabels
       ? brandCategoryLabels[brand.category as keyof typeof brandCategoryLabels]
@@ -164,15 +155,16 @@ export function BrandArchiveRow({ brand, index }: BrandArchiveRowProps) {
           pointerStartX.current = null;
         }}
       >
-        {imageUrl ? (
-          <Image
+        {currentSlide ? (
+          <SanityImage
             key={`${brand._id}-${activeSlideIndex}`}
-            src={imageUrl}
+            source={currentSlide.image}
+            aspectRatio={15 / 11}
             alt={brand.name}
             fill
             className="object-cover transition duration-700 group-hover:scale-[1.01]"
             sizes="(min-width: 768px) 55vw, 100vw"
-            priority={index === 0}
+            fetchPriority={index === 0 ? "high" : "auto"}
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center p-8 text-center text-3xl font-semibold">
@@ -185,9 +177,9 @@ export function BrandArchiveRow({ brand, index }: BrandArchiveRowProps) {
             <div className="absolute inset-0 bg-black/25" />
 
             <div className="absolute inset-0 flex items-center justify-center px-10">
-              {logoUrl ? (
-                <Image
-                  src={logoUrl}
+              {brand.logo ? (
+                <SanityImage
+                  source={brand.logo}
                   alt={brand.name}
                   width={420}
                   height={160}

@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef } from "react";
 
+import { SanityImage } from "@/components/SanityImage";
 import { formatDateRange } from "@/lib/format";
-import { urlFor } from "@/sanity/lib/image";
 import type { WhatsOnPageItem } from "./WhatsOnHero";
 
 type WhatsOnHorizontalGalleryProps = {
@@ -88,19 +87,16 @@ type WhatsOnGalleryCardProps = {
 };
 
 function WhatsOnGalleryCard({ item }: WhatsOnGalleryCardProps) {
-  const imageUrl = item.image
-    ? urlFor(item.image).width(1000).height(1350).fit("crop").url()
-    : null;
-
   const schedule =
     item.scheduleLabel || formatDateRange(item.dateStart, item.dateEnd);
 
   const cardContent = (
     <>
       <div className="relative aspect-3/4 overflow-hidden bg-(--surface-muted)">
-        {imageUrl ? (
-          <Image
-            src={imageUrl}
+        {item.image ? (
+          <SanityImage
+            source={item.image}
+            aspectRatio={3 / 4}
             alt={item.title}
             fill
             className="object-cover transition duration-700 group-hover:scale-[1.01]"
