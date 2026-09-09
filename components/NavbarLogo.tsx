@@ -65,19 +65,19 @@ export function NavbarLogo({
                 <Image
                   src={darkLogoUrl}
                   alt={siteName}
-                  width={180}
+                  width={280}
                   height={60}
                   priority
-                  className="h-14 md-h-24 w-auto object-contain"
+                  className="h-19 md-h-24 w-auto object-contain"
                 />
               ) : lightLogoUrl ? (
                 <Image
                   src={lightLogoUrl}
                   alt={siteName}
-                  width={180}
+                  width={280}
                   height={60}
                   priority
-                  className="h-14 md-h-24 w-auto object-contain brightness-0 invert"
+                  className="h-19 md-h-24 w-auto object-contain brightness-0 invert"
                 />
               ) : null
             ) : (
@@ -86,10 +86,10 @@ export function NavbarLogo({
                   <Image
                     src={lightLogoUrl}
                     alt={siteName}
-                    width={180}
+                    width={280}
                     height={60}
                     priority
-                    className="h-14 md-h-24 w-auto object-contain dark:hidden"
+                    className="h-19 md-h-24 w-auto object-contain dark:hidden"
                   />
                 ) : null}
 
@@ -97,10 +97,10 @@ export function NavbarLogo({
                   <Image
                     src={darkLogoUrl}
                     alt={siteName}
-                    width={180}
+                    width={280}
                     height={60}
                     priority
-                    className="hidden h-14 md-h-24 w-auto object-contain dark:block"
+                    className="hidden h-19 md-h-24 w-auto object-contain dark:block"
                   />
                 ) : null}
 
@@ -108,10 +108,10 @@ export function NavbarLogo({
                   <Image
                     src={darkLogoUrl}
                     alt={siteName}
-                    width={180}
+                    width={280}
                     height={60}
                     priority
-                    className="h-16 md-h-24 w-auto object-contain dark:hidden"
+                    className="h-19 md-h-24 w-auto object-contain dark:hidden"
                   />
                 ) : null}
               </>

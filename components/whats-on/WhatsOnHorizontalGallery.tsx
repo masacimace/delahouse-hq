@@ -103,7 +103,7 @@ function WhatsOnGalleryCard({ item }: WhatsOnGalleryCardProps) {
             src={imageUrl}
             alt={item.title}
             fill
-            className="object-cover transition duration-700 group-hover:scale-[1.02]"
+            className="object-cover transition duration-700 group-hover:scale-[1.01]"
             sizes="(min-width: 768px) 28.5vw, 78vw"
           />
         ) : (
@@ -118,7 +118,7 @@ function WhatsOnGalleryCard({ item }: WhatsOnGalleryCardProps) {
           {item.relatedBrand?.name || "Delahouse Indonesia"}
         </p>
 
-        <h3 className="text-sm font-medium leading-tight transition group-hover:text-(--accent) md:text-3xl">
+        <h3 className="text-sm font-medium leading-tight transition group-hover:text-(--accent) md:text-xl">
           {item.title}
         </h3>
 
