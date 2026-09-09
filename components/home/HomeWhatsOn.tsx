@@ -103,7 +103,7 @@ function HomeWhatsOnCard({ item }: HomeWhatsOnCardProps) {
       </div>
 
       <div className="pt-5">
-        <p className="mb-3 text-[11px] md:text-sm font-semibold text-(--muted)">
+        <p className="mb-3 text-[11px] md:text-xs font-semibold text-(--muted)">
           {item.relatedBrand?.name || "Delahouse Indonesia"}
         </p>
 
@@ -112,7 +112,7 @@ function HomeWhatsOnCard({ item }: HomeWhatsOnCardProps) {
         </h3>
 
         {schedule ? (
-          <p className="mt-3 text-[12px] md:text-sm italic leading-6 text-(--muted)">
+          <p className="mt-3 text-[12px] md:text-xs italic leading-6 text-(--muted)">
             {schedule}
           </p>
         ) : null}
