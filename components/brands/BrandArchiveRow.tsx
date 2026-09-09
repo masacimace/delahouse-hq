@@ -144,7 +144,7 @@ export function BrandArchiveRow({ brand, index }: BrandArchiveRowProps) {
   return (
     <article className="grid gap-6 pb-8 md:min-h-[72vh] md:grid-cols-[55%_45%] md:gap-0 md:pb-0">
       <div
-        className="group relative aspect-video touch-pan-y overflow-hidden bg-(--surface-muted) md:aspect-auto md:min-h-[72vh]"
+        className="group relative aspect-square touch-pan-y overflow-hidden bg-(--surface-muted) md:aspect-auto md:min-h-[72vh]"
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
         onWheel={handleWheel}
@@ -212,7 +212,7 @@ export function BrandArchiveRow({ brand, index }: BrandArchiveRowProps) {
 
         <div className="mt-2 md:mt-auto">
           {brand.shortDescription ? (
-            <p className="max-w-3xl text-sm font-medium leading-snug md:text-2xl">
+            <p className="max-w-3xl text-sm font-reguler leading-snug md:text-2xl">
               {brand.shortDescription}
             </p>
           ) : (

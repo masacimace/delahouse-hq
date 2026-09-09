@@ -110,16 +110,16 @@ function WhatsOnGalleryCard({ item }: WhatsOnGalleryCardProps) {
       </div>
 
       <div className="pt-5">
-        <p className="mb-3 text-xs font-medium text-(--accent)">
+        <p className="mb-3 text-sm font-medium text-(--accent)">
           {item.relatedBrand?.name || "Delahouse Indonesia"}
         </p>
 
-        <h3 className="text-sm font-medium leading-tight transition group-hover:text-(--accent) md:text-xl">
+        <h3 className="text-md font-medium leading-tight transition group-hover:text-(--accent) md:text-xl">
           {item.title}
         </h3>
 
         {schedule ? (
-          <p className="mt-3 text-sm leading-6 text-(--muted)">{schedule}</p>
+          <p className="mt-3 text-xs leading-6 text-(--muted)">{schedule}</p>
         ) : null}
       </div>
     </>

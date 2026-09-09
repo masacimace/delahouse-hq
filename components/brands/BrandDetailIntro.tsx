@@ -13,7 +13,7 @@ export function BrandDetailIntro({
     <section className="bg-(--background) px-6 py-20 text-(--foreground) md:px-10 md:py-28">
       <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
         {description ? (
-          <p className="whitespace-pre-line text-base font-medium italic leading-8 text-(--foreground) md:text-xl md:leading-10">
+          <p className="whitespace-pre-line text-md font-light leading-6 text-(--foreground) md:text-lg md:leading-10">
             {description}
           </p>
         ) : null}

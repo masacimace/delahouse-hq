@@ -52,7 +52,7 @@ function OutletCard({ outlet }: OutletCardProps) {
   return (
     <article className="border border-(--border) p-5">
       <div className="mb-4">
-        <h3 className="text-xl font-semibold uppercase tracking-wide">
+        <h3 className="text-sm font-semibold uppercase tracking-wide">
           {outlet.name}
         </h3>
 
@@ -88,7 +88,7 @@ function OutletCard({ outlet }: OutletCardProps) {
             href={outlet.googleMapsUrl}
             target="_blank"
             rel="noreferrer"
-            className="h-fit text-xs font-semibold uppercase underline underline-offset-4 transition hover:text-(--accent)"
+            className="h-fit text-[10px] font-semibold uppercase underline underline-offset-4 transition hover:text-(--accent)"
           >
             See Map
           </a>
